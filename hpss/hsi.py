@@ -57,7 +57,10 @@ def cput(disk_file, tape_file, log_file=subprocess.DEVNULL):
     disk_path=directory(disk_file)
     tape_path=directory(tape_file)
     
-    command = ["hsi", "-P", "lcd {}; cd {}; cput {}".format(disk_path, tape_path, filename(disk_file))]
+    # Without the umask, hsi defaults to 077 (group+other are prohibited).
+    # Since this module is being designed to help a collaboration backup data, I've set it to 007 (user+group free; others prohibited).
+    # Also, hsi doesn't understand absolute paths.  Hence the lcd; cd; business.
+    command = ["hsi", "-P", "umask 007; lcd {}; cd {}; cput {}".format(disk_path, tape_path, filename(disk_file))]
     print(command)
     return subprocess.call(command)
 
