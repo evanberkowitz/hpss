@@ -48,7 +48,7 @@ def ensure_path_exists(tape_file):
     
 
 def cput(disk_file, tape_file, log_file=subprocess.DEVNULL):
-    mkdir(tape_directory)
+    tape_mkdir(tape_directory)
     return subprocess.call(["hsi", "cput", disk, tape], stdout=log_file, stderr=subprocess.STDOUT)
     
 
