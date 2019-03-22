@@ -8,7 +8,7 @@ def filename(file):
     return file.split("/")[-1]
 
 def tape_mkdir(tape_directory):
-    result = subprocess.call(["hsi", "-P", "mkdir", "-p", tape_directory])
+    result = subprocess.call(["hsi", "-P", "umask 077; mkdir -p {}".format(tape_directory)])
     if result == 0:
         return result
     else:
