@@ -70,6 +70,6 @@ def cput(disk_file, tape_file, log_file=subprocess.DEVNULL):
 def cget(disk_path, tape_file, log_file=subprocess.DEVNULL):
     subprocess.call(["hsi", "-P", "lcd {}; cget {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
 
-# get will overwrite disk file with tape file
+# get will overwrite disk file with tape file; NOTE - it will update the time stamp of disk file to NOW
 def get(disk_path, tape_file, log_file=subprocess.DEVNULL):
     subprocess.call(["hsi", "-P", "lcd {}; get {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
