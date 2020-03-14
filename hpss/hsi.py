@@ -66,5 +66,10 @@ def cput(disk_file, tape_file, log_file=subprocess.DEVNULL):
     print(command)
     return subprocess.call(command)
 
-def cget(disk, tape, log_file=subprocess.DEVNULL):
-    subprocess.call(["hsi", "-P", "cget", tape, disk], stdout=log_file, stderr=subprocess.STDOUT)
+# cget only retrieves if file does not exist on disk
+def cget(disk_path, tape_file, log_file=subprocess.DEVNULL):
+    subprocess.call(["hsi", "-P", "lcd {}; cget {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
+
+# get will overwrite disk file with tape file
+def get(disk_path, tape_file, log_file=subprocess.DEVNULL):
+    subprocess.call(["hsi", "-P", "lcd {}; get {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
