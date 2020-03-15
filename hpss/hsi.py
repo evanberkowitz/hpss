@@ -71,5 +71,8 @@ def cget(disk_path, tape_file, log_file=subprocess.DEVNULL):
     subprocess.call(["hsi", "-P", "lcd {}; cget {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
 
 # get will overwrite disk file with tape file; NOTE - it will update the time stamp of disk file to NOW
-def get(disk_path, tape_file, log_file=subprocess.DEVNULL):
-    subprocess.call(["hsi", "-P", "lcd {}; get {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
+def get(disk_path, tape_file, log_file=subprocess.DEVNULL,preserve_time=True):
+    if preserve_time:
+        subprocess.call(["hsi", "-P", "lcd {}; get -p {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
+    else:
+        subprocess.call(["hsi", "-P", "lcd {}; get {}".format(disk_path, tape_file)], stdout=log_file, stderr=subprocess.STDOUT)
