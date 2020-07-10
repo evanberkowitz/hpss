@@ -10,3 +10,25 @@ def cvf(disk_dir, tape_file, log_file=subprocess.DEVNULL):
     print(command)
     return subprocess.call(command)
 
+def t(tape_file, log_file=subprocess.DEVNULL):
+    try:
+        size, date = hsi.tape_info(tape_file)
+        print(f"{tape_file} is {size} big and was created on {date}")
+    except:
+        return -1
+
+    command = ["htar", "-tf", tape_file]
+    print(command)
+    return subprocess.call(command)
+
+def x(tape_file, log_file=subprocess.DEVNULL):
+    try:
+        size, date = hsi.tape_info(tape_file)
+        print(f"{tape_file} is {size} big and was created on {date}")
+    except:
+        return -1
+
+    print(f"Working directory in which we are expanding is {os.getcwd()}")
+    command = ["htar", "-xf", tape_file]
+    print(command)
+    return subprocess.call(command)
