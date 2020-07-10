@@ -21,7 +21,7 @@ def t(tape_file, log_file=subprocess.DEVNULL):
     print(command)
     return subprocess.call(command)
 
-def x(tape_file, log_file=subprocess.DEVNULL):
+def xvf(tape_file, log_file=subprocess.DEVNULL):
     try:
         size, date = hsi.tape_info(tape_file)
         print(f"{tape_file} is {size} big and was created on {date}")
@@ -29,6 +29,6 @@ def x(tape_file, log_file=subprocess.DEVNULL):
         return -1
 
     print(f"Working directory in which we are expanding is {os.getcwd()}")
-    command = ["htar", "-xf", tape_file]
+    command = ["htar", "-xvf", tape_file]
     print(command)
     return subprocess.call(command)
